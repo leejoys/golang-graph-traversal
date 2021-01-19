@@ -6,69 +6,201 @@ import (
 )
 
 func TestDfs(t *testing.T) {
+	// graph
 	g := NewDirectedGraph()
 
-	g.AddVertex(1)
-	g.AddVertex(2)
-	g.AddVertex(3)
-	g.AddVertex(4)
-	g.AddVertex(5)
-	g.AddVertex(6)
-	g.AddVertex(7)
-	g.AddVertex(8)
-	g.AddVertex(9)
-	g.AddVertex(10)
-
-	g.AddEdge(1, 9)
-	g.AddEdge(1, 5)
-	g.AddEdge(1, 2)
-	g.AddEdge(2, 2)
-	g.AddEdge(3, 4)
-	g.AddEdge(5, 6)
-	g.AddEdge(5, 8)
-	g.AddEdge(6, 7)
-	g.AddEdge(9, 10)
-
-	visitedOrder := []int{}
-	cb := func(i int) {
-		visitedOrder = append(visitedOrder, i)
+	// ErrNotAllVertExist test
+	err := g.AddEdge(1, 2)
+	if err != nil {
+		fmt.Println(err)
 	}
-	DFS(g, g.Vertices[1], cb)
 
-	// add assertions here
-	fmt.Println(visitedOrder)
+	// create vertices
+	for i := 0; i < 8; i++ {
+		err := g.AddVertex(i + 1)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	// ErrVertExist test
+	err = g.AddVertex(5)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// begin create edges
+	err = g.AddEdge(1, 2)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(2, 3)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(2, 4)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 1)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 5)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(5, 6)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = g.AddEdge(6, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(5, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// end of edges
+
+	path, err := ShortestBFS(1, 6, g)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for path.tail != nil {
+			fmt.Println(path.dequeue().Key)
+		}
+	}
+
+	fmt.Println("")
+
+	path, err = ShortestBFS(6, 3, g)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for path.tail != nil {
+			fmt.Println(path.dequeue().Key)
+		}
+	}
+
+	// fmt.Println(g.Vertices[1])
+	// fmt.Println(g.Vertices[2])
+	// fmt.Println(g.Vertices[3])
+	// fmt.Println(g.Vertices[4])
+	// fmt.Println(g.Vertices[5])
+	// fmt.Println(g.Vertices[6])
+	// fmt.Println(g.Vertices[7])
+	// fmt.Println(g.Vertices[8])
 }
 
 func TestBfs(t *testing.T) {
-	g := NewDirectedGraph()
+	// graph
+	g := NewUndirectedGraph()
 
-	g.AddVertex(1)
-	g.AddVertex(2)
-	g.AddVertex(3)
-	g.AddVertex(4)
-	g.AddVertex(5)
-	g.AddVertex(6)
-	g.AddVertex(7)
-	g.AddVertex(8)
-	g.AddVertex(9)
-	g.AddVertex(10)
-
-	g.AddEdge(1, 9)
-	g.AddEdge(1, 5)
-	g.AddEdge(1, 2)
-	g.AddEdge(2, 2)
-	g.AddEdge(3, 4)
-	g.AddEdge(5, 6)
-	g.AddEdge(5, 8)
-	g.AddEdge(6, 7)
-	g.AddEdge(9, 10)
-
-	visitedOrder := []int{}
-	cb := func(i int) {
-		visitedOrder = append(visitedOrder, i)
+	// ErrNotAllVertExist test
+	err := g.AddEdge(1, 2)
+	if err != nil {
+		fmt.Println(err)
 	}
-	BFS(g, g.Vertices[1], cb)
 
-	// add assertions here
-	fmt.Println(visitedOrder)
+	// create vertices
+	for i := 0; i < 8; i++ {
+		err := g.AddVertex(i + 1)
+		if err != nil {
+			fmt.Println(err)
+		}
+	}
+
+	// ErrVertExist test
+	err = g.AddVertex(5)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// begin create edges
+	err = g.AddEdge(1, 2)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(2, 3)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(2, 4)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 1)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 5)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(5, 6)
+	if err != nil {
+		fmt.Println(err)
+	}
+	err = g.AddEdge(6, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(5, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = g.AddEdge(4, 7)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// end of edges
+
+	path, err := ShortestBFS(1, 6, g)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for path.tail != nil {
+			fmt.Println(path.dequeue().Key)
+		}
+	}
+
+	fmt.Println("")
+
+	path, err = ShortestBFS(6, 3, g)
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for path.tail != nil {
+			fmt.Println(path.dequeue().Key)
+		}
+	}
+
+	// fmt.Println(g.Vertices[1])
+	// fmt.Println(g.Vertices[2])
+	// fmt.Println(g.Vertices[3])
+	// fmt.Println(g.Vertices[4])
+	// fmt.Println(g.Vertices[5])
+	// fmt.Println(g.Vertices[6])
+	// fmt.Println(g.Vertices[7])
+	// fmt.Println(g.Vertices[8])
 }
